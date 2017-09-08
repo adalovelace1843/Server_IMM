@@ -7,6 +7,7 @@ package servidorimm;
 
 import java.sql.SQLException;
 import valueObjects.VoTicket;
+import valueObjects.VoTicketCompleto;
 
 /**
  *
@@ -14,4 +15,5 @@ import valueObjects.VoTicket;
  */
 public interface InterfaceBD_IMM {
     public void guardarTicket(VoTicket vo) throws SQLException;
+    public int guardarTicketCompleto (VoTicketCompleto vo) throws SQLException;
 }

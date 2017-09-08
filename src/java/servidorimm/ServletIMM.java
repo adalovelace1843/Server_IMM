@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import valueObjects.VoTicket;
+import valueObjects.VoTicketBasico;
+import valueObjects.VoTicketCompleto;
 
 /**
  *
@@ -34,5 +36,21 @@ public class ServletIMM {
           //  Logger.getLogger(ServletIMM.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
+    }
+    
+    /**
+     * WS que permite dar de alta un ticket en su formato completo 
+     * @param vo ingresa un VoTicketCompleto
+     * @return 
+     */
+    @WebMethod
+    public VoTicketBasico altaTicketCompleto(VoTicketCompleto vo){
+        VoTicketBasico voTB = null;
+        try {
+            voTB = interfaz.ventaTicketCompleto(vo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletIMM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return voTB;
     }
 }
