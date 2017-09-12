@@ -5,13 +5,14 @@
  */
 package valueObjects;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author e299227
  */
-public class VoTicketCompleto extends VoTicketBasico{
+public class VoTicketCompleto extends VoTicketBasico implements Serializable {
     private String agencia_venta;
     private String matricula;
     private Date f_h_venta;

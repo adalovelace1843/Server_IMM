@@ -36,7 +36,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
     
     private void conectarBD() throws NamingException, SQLException{
         InitialContext initContext = new InitialContext();
-        DataSource ds = (DataSource)initContext.lookup("java:jboss/datasources/MySqlDS");
+        DataSource ds = (DataSource)initContext.lookup("java:jboss/datasources/MySqlDS/");
         conn = ds.getConnection();
        
     }
@@ -61,26 +61,26 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
      */
     @Override
     public int guardarTicketCompleto(VoTicketCompleto vo) throws SQLException {
-        String sql="SELECT numero+1 from secuencia where tipo = 'ticket'";
+        String sql="SELECT numero+1 as numero from secuencia where tipo = 'ticket'";
         PreparedStatement inst;
         inst = conn.prepareStatement(sql);
         ResultSet rs = inst.executeQuery(sql);
         int numero = -1;
         if(rs.next()){
             numero = rs.getInt("numero");
-            sql="INSERT INTO ventascompleto (numero,agencia,matricula,fecha_hora_venta,fecha_hora_inicio,hora_inicio,minutos,importe_Total) values (?,?,?,?,?,?,?)";
+            sql="INSERT INTO ventascompleto (numero,agencia,matricula,fecha_hora_venta,fecha_hora_inicio,minutos,importe_Total) values (?,?,?,?,?,?,?)";
             PreparedStatement inst2 = conn.prepareStatement(sql);
             inst2.setInt(1, numero);
             inst2.setString(2, vo.getAgencia_venta());
             inst2.setString(3, vo.getMatricula());
-            inst2.setDate(4, vo.getF_h_venta());
-            inst2.setDate(5, vo.getF_h_inicio());
+            inst2.setDate(4, null);
+            inst2.setDate(5, null);
             inst2.setInt(6, vo.getCant_min());
             inst2.setFloat(7, vo.getImporte_total());
-            if(inst2.executeUpdate(sql) == 1){
-                sql="UPDATE FROM secuencia SET numero=numero+1 where tipo = 'ticket'";
+            if(inst2.executeUpdate() == 1){
+                sql="UPDATE secuencia SET numero=numero+1 where tipo = 'ticket'";
                 PreparedStatement inst3 = conn.prepareStatement(sql);
-                if(inst3.executeUpdate(sql) != 1){
+                if(inst3.executeUpdate() != 1){
                     numero=-1;
                 }
                 inst3.close();

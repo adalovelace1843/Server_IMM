@@ -54,7 +54,12 @@ public class InterfaceB2BImpl implements InterfaceB2B{
      * @return float importe total
      */
     private float calcular_importe (int minutos){
-        return minutos*2;
+        float total=minutos/60;
+        int resto= minutos%60;
+        if(resto > 0){
+            total=total+1;
+        }
+        return total*120;
     }
     
 }

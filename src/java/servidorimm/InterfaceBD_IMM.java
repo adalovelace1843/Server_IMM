@@ -13,7 +13,7 @@ import valueObjects.VoTicketCompleto;
  *
  * @author e299227
  */
-public interface InterfaceBD_IMM {
+public interface InterfaceBD_IMM  {
     public void guardarTicket(VoTicket vo) throws SQLException;
     public int guardarTicketCompleto (VoTicketCompleto vo) throws SQLException;
 }

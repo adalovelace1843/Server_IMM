@@ -5,11 +5,13 @@
  */
 package valueObjects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author e299227
  */
-public class VoTicketBasico {
+public class VoTicketBasico implements Serializable{
     private int nro_ticket;
     private float importe_total;
     

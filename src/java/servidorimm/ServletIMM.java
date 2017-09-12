@@ -49,7 +49,9 @@ public class ServletIMM {
         try {
             voTB = interfaz.ventaTicketCompleto(vo);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletIMM.class.getName()).log(Level.SEVERE, null, ex);
+            voTB = new VoTicketBasico();
+            voTB.setNro_ticket(-1);
+            voTB.setImporte_total(0);
         }
         return voTB;
     }
