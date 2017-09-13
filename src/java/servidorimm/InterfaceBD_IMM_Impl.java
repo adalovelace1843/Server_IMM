@@ -73,8 +73,8 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
             inst2.setInt(1, numero);
             inst2.setString(2, vo.getAgencia_venta());
             inst2.setString(3, vo.getMatricula());
-            inst2.setDate(4, null);
-            inst2.setDate(5, null);
+            inst2.setString(4, vo.getF_h_venta());
+            inst2.setString(5, vo.getF_h_inicio());
             inst2.setInt(6, vo.getCant_min());
             inst2.setFloat(7, vo.getImporte_total());
             if(inst2.executeUpdate() == 1){
