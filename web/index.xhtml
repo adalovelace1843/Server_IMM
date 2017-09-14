@@ -3,10 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:outputText value="Login IMM" style="font-family: verdana; color:  #032a78; font-size: medium"/>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="Usuario"/>
+                <h:inputText value="#{sbLogin.voLog.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario para loguearse"/>
+                <h:outputText value="Contraseña"/>
+                <h:inputText value="#{sbLogin.voLog.clave}" required="true" requiredMessage="Debe ingresar la contraseña para loguarse"/>
+            </h:panelGrid>
+        <br/>
+        <h:commandButton action="#{sbLogin.validarLoginIMM()}" type="submit" value="Ingresar" />
+        <h:messages id="mensaje" showDetail="false" showSummary="true"/>
+        </h:form>
     </h:body>
 </html>
 

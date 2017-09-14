@@ -6,9 +6,12 @@
 package servidorimm;
 
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import valueObjects.VoLogin;
 import valueObjects.VoTicket;
 import valueObjects.VoTicketBasico;
 import valueObjects.VoTicketCompleto;
@@ -62,4 +65,20 @@ public class InterfaceB2BImpl implements InterfaceB2B{
         return total*120;
     }
     
+    public boolean obtenerValidacionIMM(VoLogin vo) throws NamingException,SQLException,ClassNotFoundException{
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        return in.obtenerValidacionBDIMM(vo);
+    }
+
+    @Override
+    public List<VoTicketCompleto> obtenerListadoMensual() throws NamingException,SQLException,ClassNotFoundException {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        return in.obtenerListadoMensualBD();
+    }
+
+    @Override
+    public List<VoTicketCompleto> obtenerListadoFecha(Date fecha_desde, Date fecha_hasta) throws NamingException, SQLException, ClassNotFoundException {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        return in.obtenerListadoFechaBD(fecha_desde, fecha_hasta);
+    }
 }

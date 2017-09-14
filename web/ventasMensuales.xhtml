@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+   <h:head>
+        <title>Ventas totales mensuales</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:outputText value="Ventas Mensuales" style="font-family: verdana; color:  #035578"/>
+            <h:dataTable value="#{sbListadoTickets.tickets}" var="listado" bgcolor="#c1e5fa" border="1">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Numero"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.nro_ticket}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Agencia"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.agencia_venta}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Matricula"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.matricula}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha hora venta"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.f_h_venta}"/>
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha hora inicio"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.f_h_inicio}"/>
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Minutos"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.cant_min}"/>
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Importe total"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.importe_total}"/>
+                </h:column>
+            </h:dataTable>
+            <br/>
+            <h:commandButton action="menu" type="submit" value="Volver" />
+            <h:messages id="mensaje" showDetail="false" showSummary="true"/>
+        </h:form>
+    </h:body>
+</html>

@@ -9,9 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import valueObjects.VoLogin;
 import valueObjects.VoTicket;
 import valueObjects.VoTicketCompleto;
 
@@ -94,4 +100,72 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
     
     
     // CERRAR LA CONEXION?
+
+    @Override
+    public boolean obtenerValidacionBDIMM(VoLogin vo) throws SQLException{
+        boolean resultado=false;
+        String sql="select * from usuarios where usuario=? and clave=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, vo.getUsuario());
+        ps.setString(2, vo.getClave());
+        ResultSet rs =ps.executeQuery();
+        if(rs.next()){
+            resultado=true;
+        }
+        rs.close();
+        ps.close();
+        return resultado;
+    }
+
+    @Override
+    public List<VoTicketCompleto> obtenerListadoMensualBD() throws SQLException {
+        List<VoTicketCompleto> tickets= new ArrayList<>();
+       
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery("select * from ventascompleto where month(fecha_hora_venta) = month(now()) and year(fecha_hora_venta)= year(now())");
+
+        while (rs.next()) {
+            VoTicketCompleto temp = new VoTicketCompleto();
+            temp.setNro_ticket(rs.getInt("numero"));
+            temp.setAgencia_venta(rs.getString("agencia"));
+            temp.setMatricula(rs.getString("matricula"));
+            temp.setF_h_venta(rs.getString("fecha_hora_venta"));
+            temp.setF_h_inicio(rs.getString("fecha_hora_inicio"));
+            temp.setCant_min(rs.getInt("minutos"));
+            temp.setImporte_total(rs.getFloat("importe_Total"));
+            tickets.add(temp);
+            temp=null;
+        }
+        rs.close();
+        st.close();
+        
+        return tickets;
+    }
+
+    @Override
+    public List<VoTicketCompleto> obtenerListadoFechaBD(Date fecha_desde, Date fecha_hasta) throws SQLException {
+        List<VoTicketCompleto> tickets= new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sql="select * from ventascompleto where fecha_hora_venta between ? and ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, sdf.format(fecha_desde));
+        ps.setString(2, sdf.format(fecha_hasta));
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            VoTicketCompleto temp = new VoTicketCompleto();
+            temp.setNro_ticket(rs.getInt("numero"));
+            temp.setAgencia_venta(rs.getString("agencia"));
+            temp.setMatricula(rs.getString("matricula"));
+            temp.setF_h_venta(rs.getString("fecha_hora_venta"));
+            temp.setF_h_inicio(rs.getString("fecha_hora_inicio"));
+            temp.setCant_min(rs.getInt("minutos"));
+            temp.setImporte_total(rs.getFloat("importe_Total"));
+            tickets.add(temp);
+            temp=null;
+        }
+        rs.close();
+        ps.close();
+        
+        return tickets;
+    }
 }
