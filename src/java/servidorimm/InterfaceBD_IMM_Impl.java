@@ -146,7 +146,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
     public List<VoTicketCompleto> obtenerListadoFechaBD(Date fecha_desde, Date fecha_hasta) throws SQLException {
         List<VoTicketCompleto> tickets= new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String sql="select * from ventascompleto where fecha_hora_venta between ? and ?";
+        String sql="select * from ventascompleto where fecha_hora_venta between ? and date_add(?, interval 1 day)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, sdf.format(fecha_desde));
         ps.setString(2, sdf.format(fecha_hasta));
