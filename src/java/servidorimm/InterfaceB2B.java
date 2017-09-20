@@ -5,6 +5,7 @@
  */
 package servidorimm;
 
+import exception.ExPersistenciaIMM;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +20,9 @@ import valueObjects.VoTicketCompleto;
  * @author e299227
  */
 public interface InterfaceB2B {
-    public String ventaTicket(VoTicket vo) throws SQLException;
-    public VoTicketBasico ventaTicketCompleto (VoTicketCompleto vo) throws SQLException;
-     public boolean obtenerValidacionIMM(VoLogin vo) throws NamingException,SQLException,ClassNotFoundException;
-
-    public List<VoTicketCompleto> obtenerListadoMensual() throws NamingException,SQLException,ClassNotFoundException;
-
-    public List<VoTicketCompleto> obtenerListadoFecha(Date fecha_desde, Date fecha_hasta) throws NamingException,SQLException,ClassNotFoundException;
+    public VoTicketBasico ventaTicketCompleto (VoTicketCompleto vo) throws ExPersistenciaIMM;
+    public boolean obtenerValidacionIMM(VoLogin vo) throws ExPersistenciaIMM;
+    public List<VoTicketCompleto> obtenerListadoMensual() throws ExPersistenciaIMM;
+    public List<VoTicketCompleto> obtenerListadoFecha(Date fecha_desde, Date fecha_hasta) throws ExPersistenciaIMM;
+    public int anularTicketIMM(int nroTicket) throws ExPersistenciaIMM;
 }

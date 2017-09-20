@@ -5,10 +5,12 @@
  */
 package beans;
 
+import exception.ExPersistenciaIMM;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -41,16 +43,14 @@ public class sbListadoTickets {
     }
     
     public void listadoMensual(){
+
         try {
             InterfaceB2B ib2b = new InterfaceB2BImpl();
             tickets=ib2b.obtenerListadoMensual();
-        } catch (NamingException ex) {
-            FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
-        } catch (SQLException ex) {
-           FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
-        } catch (ClassNotFoundException ex) {
+        } catch (ExPersistenciaIMM ex) {
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
         }
+
     }
     
     

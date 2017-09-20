@@ -5,12 +5,9 @@
  */
 package servidorimm;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import exception.ExPersistenciaIMM;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import valueObjects.VoTicket;
 import valueObjects.VoTicketBasico;
 import valueObjects.VoTicketCompleto;
 
@@ -25,19 +22,6 @@ public class ServletIMM {
     public ServletIMM() {
     }
     
-    @WebMethod
-    public String altaTicket (VoTicket vo){
-        String res="ERROR EN SERVLETIMM";
-        try {
-            //res="VENTA OK";
-            res= interfaz.ventaTicket(vo);
-        } catch (SQLException ex) {
-            return res="ERROR_WS: "+ex.getMessage();
-          //  Logger.getLogger(ServletIMM.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return res;
-    }
-    
     /**
      * WS que permite dar de alta un ticket en su formato completo 
      * @param vo ingresa un VoTicketCompleto
@@ -48,11 +32,22 @@ public class ServletIMM {
         VoTicketBasico voTB = null;
         try {
             voTB = interfaz.ventaTicketCompleto(vo);
-        } catch (SQLException ex) {
+        } catch (ExPersistenciaIMM ex) {
             voTB = new VoTicketBasico();
             voTB.setNro_ticket(-1);
             voTB.setImporte_total(0);
         }
         return voTB;
+    }
+    
+    @WebMethod
+    public int anularTicketIMM(int nroTicket){
+        int res=0;
+        try {
+            res=interfaz.anularTicketIMM(nroTicket);
+        } catch (ExPersistenciaIMM ex) {
+            res=-1;
+        }
+        return res;
     }
 }

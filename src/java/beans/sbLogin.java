@@ -5,6 +5,7 @@
  */
 package beans;
 
+import exception.ExPersistenciaIMM;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,17 +41,14 @@ public class sbLogin {
     public String validarLoginIMM (){
         String resultado=null;
         try {
+            
             InterfaceB2B ib2b= new InterfaceB2BImpl();
             if(ib2b.obtenerValidacionIMM(voLog)){
                 resultado="menu";
             }else{
-                 FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_INFO,"Error! Usuario/contraseña incorrecto","Info login"));
+                FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_INFO,"Error! Usuario/contraseña incorrecto","Info login"));
             }
-        } catch (NamingException ex) {
-             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
-        } catch (SQLException ex) {
-           FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
-        } catch (ClassNotFoundException ex) {
+        } catch (ExPersistenciaIMM ex) {
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error login"));
         }
         return resultado;
