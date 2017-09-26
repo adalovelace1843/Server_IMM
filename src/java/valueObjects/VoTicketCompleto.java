@@ -18,6 +18,7 @@ public class VoTicketCompleto extends VoTicketBasico implements Serializable {
     private String f_h_venta;
     private String f_h_inicio;
     private int cant_min;
+    private String estado;
 
     public VoTicketCompleto() {
     }
@@ -60,6 +61,14 @@ public class VoTicketCompleto extends VoTicketBasico implements Serializable {
 
     public void setCant_min(int cant_min) {
         this.cant_min = cant_min;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     

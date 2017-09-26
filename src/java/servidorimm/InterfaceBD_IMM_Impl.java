@@ -124,7 +124,10 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
         try {
             List<VoTicketCompleto> tickets= new ArrayList<>();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from ventascompleto where month(fecha_hora_venta) = month(now()) and year(fecha_hora_venta)= year(now())");
+            ResultSet rs = st.executeQuery("select cv.* , if (a.numero=cv.numero,'anulado', 'ok') as estado\n" +
+                                            "from ventascompleto cv \n" +
+                                            "left join anulaciones a on a.numero=cv.numero\n" +
+                                            "where month(fecha_hora_venta) = month(now()) and year(fecha_hora_venta)= year(now())");
             
             while (rs.next()) {
                 VoTicketCompleto temp = new VoTicketCompleto();
@@ -135,6 +138,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
                 temp.setF_h_inicio(rs.getString("fecha_hora_inicio"));
                 temp.setCant_min(rs.getInt("minutos"));
                 temp.setImporte_total(rs.getFloat("importe_Total"));
+                temp.setEstado(rs.getString("estado"));
                 tickets.add(temp);
                 temp=null;
             }
@@ -152,7 +156,10 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
         List<VoTicketCompleto> tickets= new ArrayList<>();
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String sql="select * from ventascompleto where fecha_hora_venta between ? and date_add(?, interval 1 day)";
+            String sql="select cv.* , if (a.numero=cv.numero,'anulado', 'ok') as estado\n" +
+                        "from ventascompleto cv\n" +
+                        "left join anulaciones a on a.numero=cv.numero "+
+                        "where fecha_hora_venta between ? and date_add(?, interval 1 day)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, sdf.format(fecha_desde));
             ps.setString(2, sdf.format(fecha_hasta));
@@ -166,6 +173,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
                 temp.setF_h_inicio(rs.getString("fecha_hora_inicio"));
                 temp.setCant_min(rs.getInt("minutos"));
                 temp.setImporte_total(rs.getFloat("importe_Total"));
+                temp.setEstado(rs.getString("estado"));
                 tickets.add(temp);
                 temp=null;
             }

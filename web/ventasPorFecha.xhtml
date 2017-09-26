@@ -65,23 +65,29 @@ and open the template in the editor.
                     </f:facet>
                     <h:outputText value="#{listado.f_h_venta}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
                         <h:outputText value="Fecha hora inicio"/>
                     </f:facet>
                     <h:outputText value="#{listado.f_h_inicio}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
                         <h:outputText value="Minutos"/>
                     </f:facet>
                     <h:outputText value="#{listado.cant_min}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
                         <h:outputText value="Importe total"/>
                     </f:facet>
                     <h:outputText value="#{listado.importe_total}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Estado"/>
+                    </f:facet>
+                    <h:outputText value="#{listado.estado}"/>
                 </h:column>
             </h:dataTable>
             <br/>
