@@ -27,7 +27,7 @@ public interface InterfaceBD_IMM  {
 
     public List<VoTicketCompleto> obtenerListadoFechaBD(Date fecha_desde, Date fecha_hasta) throws ExPersistenciaIMM;
 
-    public int anularTicketIMMBD(int nroTicket) throws ExPersistenciaIMM;
+    public int anularTicketIMMBD(int nroTicket, String agencia) throws ExPersistenciaIMM;
 
     public void altaUsuarioBD(voUsuario vo) throws ExPersistenciaIMM;
 

@@ -41,10 +41,10 @@ public class ServletIMM {
     }
     
     @WebMethod
-    public int anularTicketIMM(int nroTicket){
+    public int anularTicketIMM(int nroTicket, String agencia){
         int res=0;
         try {
-            res=interfaz.anularTicketIMM(nroTicket);
+            res=interfaz.anularTicketIMM(nroTicket, agencia);
         } catch (ExPersistenciaIMM ex) {
             res=-1;
         }

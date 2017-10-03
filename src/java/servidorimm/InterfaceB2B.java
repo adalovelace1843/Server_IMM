@@ -25,7 +25,7 @@ public interface InterfaceB2B {
     public boolean obtenerValidacionIMM(VoLogin vo) throws ExPersistenciaIMM;
     public List<VoTicketCompleto> obtenerListadoMensual() throws ExPersistenciaIMM;
     public List<VoTicketCompleto> obtenerListadoFecha(Date fecha_desde, Date fecha_hasta) throws ExPersistenciaIMM;
-    public int anularTicketIMM(int nroTicket) throws ExPersistenciaIMM;
+    public int anularTicketIMM(int nroTicket,String agencia) throws ExPersistenciaIMM;
     public void altaUsuario(voUsuario vo) throws ExPersistenciaIMM;
 
     public void bajaUsuario(String usuario) throws ExPersistenciaIMM;

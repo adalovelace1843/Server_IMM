@@ -188,38 +188,49 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
     }
 
     @Override
-    public int anularTicketIMMBD(int nroTicket) throws ExPersistenciaIMM {
+    public int anularTicketIMMBD(int nroTicket, String agencia) throws ExPersistenciaIMM {
         int numero = -1;
         try {
-            String sql="SELECT numero+1 as numero from secuencia where tipo = 'anulacion'";
-            PreparedStatement inst;
-            inst = conn.prepareStatement(sql);
-            ResultSet rs = inst.executeQuery(sql);
-            if(rs.next()){
-                try {
-                    conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-                    conn.setAutoCommit(false);
-                    numero = rs.getInt("numero");
-                    sql="INSERT INTO anulaciones (transaccion,numero) values (?,?)";
-                    PreparedStatement inst2 = conn.prepareStatement(sql);
-                    inst2.setInt(1, numero);
-                    inst2.setInt(2, nroTicket);
-                    inst2.executeUpdate();
-                    sql="UPDATE secuencia SET numero=numero+1 where tipo = 'anulacion'";
-                    PreparedStatement inst3 = conn.prepareStatement(sql);
-                    if(inst3.executeUpdate() != 1){
-                        numero=-1;
+            String sql0="select * from ventascompleto where numero=? and agencia=?";
+            PreparedStatement inst0 = conn.prepareStatement(sql0);
+            inst0.setInt(1, nroTicket);
+            inst0.setString(2, agencia);
+            ResultSet rs0=inst0.executeQuery();
+            if(rs0.next()){
+                
+                String sql="SELECT numero+1 as numero from secuencia where tipo = 'anulacion'";
+                PreparedStatement inst;
+                inst = conn.prepareStatement(sql);
+                ResultSet rs = inst.executeQuery(sql);
+                if(rs.next()){
+                    try {
+                        conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+                        conn.setAutoCommit(false);
+                        numero = rs.getInt("numero");
+                        sql="INSERT INTO anulaciones (transaccion,numero) values (?,?)";
+                        PreparedStatement inst2 = conn.prepareStatement(sql);
+                        inst2.setInt(1, numero);
+                        inst2.setInt(2, nroTicket);
+                        inst2.executeUpdate();
+                        sql="UPDATE secuencia SET numero=numero+1 where tipo = 'anulacion'";
+                        PreparedStatement inst3 = conn.prepareStatement(sql);
+                        if(inst3.executeUpdate() != 1){
+                            numero=-1;
+                        }
+                        inst3.close();
+                        inst2.close();
+                        conn.commit();
+                    } catch (SQLException ex) {
+                        conn.rollback();
+                        throw new ExPersistenciaIMM("No se pudo anular al ticket, se cancela operación (SI)");
                     }
-                    inst3.close();
-                    inst2.close();
-                    conn.commit();
-                } catch (SQLException ex) {
-                    conn.rollback();
-                    throw new ExPersistenciaIMM("No se pudo anular al ticket, se cancela operación (SI)");
                 }
+                rs.close();
+                inst.close(); 
             }
-            rs.close();
-            inst.close(); 
+            rs0.close();
+            inst0.close();
+            
         } catch (SQLException ex) {
             throw new ExPersistenciaIMM("No se pudo anular al ticket, se cancela operación");
         }    

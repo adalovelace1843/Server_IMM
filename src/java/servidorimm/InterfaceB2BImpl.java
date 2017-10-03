@@ -75,9 +75,9 @@ public class InterfaceB2BImpl implements InterfaceB2B{
     }
 
     @Override
-    public int anularTicketIMM(int nroTicket) throws ExPersistenciaIMM {
+    public int anularTicketIMM(int nroTicket, String agencia) throws ExPersistenciaIMM {
         InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
-        return in.anularTicketIMMBD(nroTicket);
+        return in.anularTicketIMMBD(nroTicket, agencia);
     }
 
     @Override
