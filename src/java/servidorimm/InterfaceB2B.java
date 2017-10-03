@@ -14,6 +14,7 @@ import valueObjects.VoLogin;
 import valueObjects.VoTicket;
 import valueObjects.VoTicketBasico;
 import valueObjects.VoTicketCompleto;
+import valueObjects.voUsuario;
 
 /**
  *
@@ -25,4 +26,9 @@ public interface InterfaceB2B {
     public List<VoTicketCompleto> obtenerListadoMensual() throws ExPersistenciaIMM;
     public List<VoTicketCompleto> obtenerListadoFecha(Date fecha_desde, Date fecha_hasta) throws ExPersistenciaIMM;
     public int anularTicketIMM(int nroTicket) throws ExPersistenciaIMM;
+    public void altaUsuario(voUsuario vo) throws ExPersistenciaIMM;
+
+    public void bajaUsuario(String usuario) throws ExPersistenciaIMM;
+
+    public boolean esAdmin(String usuario) throws ExPersistenciaIMM;
 }

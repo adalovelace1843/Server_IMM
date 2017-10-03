@@ -20,6 +20,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import valueObjects.VoLogin;
 import valueObjects.VoTicketCompleto;
+import valueObjects.voUsuario;
 
 
 
@@ -101,6 +102,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
 
     @Override
     public boolean obtenerValidacionBDIMM(VoLogin vo) throws ExPersistenciaIMM{
+        
         try {
             boolean resultado=false;
             String sql="select * from usuarios where usuario=? and clave=?";
@@ -222,5 +224,61 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
             throw new ExPersistenciaIMM("No se pudo anular al ticket, se cancela operación");
         }    
         return numero;          
+    }
+
+    @Override
+    public void altaUsuarioBD(voUsuario vo) throws ExPersistenciaIMM {
+        try {
+            String sql="insert into usuarios (usuario, clave, nivel) values (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, vo.getUsuario());
+            ps.setString(2, vo.getClave());
+            ps.setInt(3, vo.getNivel());
+            ps.executeUpdate();
+            ps.close();     
+        } catch (SQLException ex) {
+            if(ex.getErrorCode() == 1062){
+                throw new ExPersistenciaIMM("Ya existe usuario");
+            }else{
+                throw new ExPersistenciaIMM("No se pudo de dar de alta al usuario. Error: "+ex.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void bajaUsuarioBD(String usuario) throws ExPersistenciaIMM {
+         try {
+            String sql="delete from usuarios where usuario=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario);
+            int i=ps.executeUpdate();
+            if(i==0){
+                throw new ExPersistenciaIMM("No existe un usuario creado con ese nombre.");
+            }
+            
+            ps.close();     
+        } catch (SQLException ex) {
+            throw new ExPersistenciaIMM("No se pudo eliminar al usuario. Error: "+ex.getMessage());
+        }
+    }
+
+    @Override
+    public boolean esAdminBD(String usuario) throws ExPersistenciaIMM {
+        try {
+            boolean esAdmin=false;
+            String sql="select * from usuarios where usuario=? and nivel=0";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario);
+
+            ResultSet rs =ps.executeQuery();
+            if(rs.next()){
+                esAdmin=true;
+            }
+            rs.close();
+            ps.close();
+            return esAdmin;
+        } catch (SQLException ex) {
+            throw new ExPersistenciaIMM("Error al obtener si es un administrador en la BD (SI)");
+        }
     }
 }

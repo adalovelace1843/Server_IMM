@@ -16,13 +16,20 @@ import valueObjects.VoLogin;
 import valueObjects.VoTicket;
 import valueObjects.VoTicketBasico;
 import valueObjects.VoTicketCompleto;
+import valueObjects.voUsuario;
 
 /**
  *
  * @author e299227
  */
 public class InterfaceB2BImpl implements InterfaceB2B{
+    /*private static InterfaceB2BImpl instance;
     
+    public static InterfaceB2BImpl getInstance(){
+        if (instance==null)
+            instance = new InterfaceB2BImpl();
+        return instance;
+    }*/
       
     public VoTicketBasico ventaTicketCompleto(VoTicketCompleto vo) throws ExPersistenciaIMM {
         int numero=0;
@@ -71,5 +78,23 @@ public class InterfaceB2BImpl implements InterfaceB2B{
     public int anularTicketIMM(int nroTicket) throws ExPersistenciaIMM {
         InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
         return in.anularTicketIMMBD(nroTicket);
+    }
+
+    @Override
+    public void altaUsuario(voUsuario vo) throws ExPersistenciaIMM {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        in.altaUsuarioBD(vo);
+    }
+
+    @Override
+    public void bajaUsuario(String usuario) throws ExPersistenciaIMM {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        in.bajaUsuarioBD(usuario);
+    }
+
+    @Override
+    public boolean esAdmin(String usuario) throws ExPersistenciaIMM {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        return in.esAdminBD(usuario);
     }
 }

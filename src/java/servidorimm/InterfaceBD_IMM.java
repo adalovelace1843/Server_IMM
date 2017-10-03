@@ -12,6 +12,7 @@ import java.util.List;
 import valueObjects.VoLogin;
 import valueObjects.VoTicket;
 import valueObjects.VoTicketCompleto;
+import valueObjects.voUsuario;
 
 /**
  *
@@ -27,6 +28,12 @@ public interface InterfaceBD_IMM  {
     public List<VoTicketCompleto> obtenerListadoFechaBD(Date fecha_desde, Date fecha_hasta) throws ExPersistenciaIMM;
 
     public int anularTicketIMMBD(int nroTicket) throws ExPersistenciaIMM;
+
+    public void altaUsuarioBD(voUsuario vo) throws ExPersistenciaIMM;
+
+    public void bajaUsuarioBD(String usuario)throws ExPersistenciaIMM;
+
+    public boolean esAdminBD(String usuario)throws ExPersistenciaIMM;
 
    
 }

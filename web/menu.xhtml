@@ -13,6 +13,7 @@ and open the template in the editor.
                 <br/>
                 <h:commandLink action="ventasMensuales" value="Ventas totales mensuales"/>
                 <h:commandLink action="ventasPorFecha" value="Ventas por rango de fechas"/>
+                <h:commandLink action="administracionUsuarios" value="Agregar o quitar usuarios" rendered="#{sbAdministracionUsuarios.esAdmin()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>

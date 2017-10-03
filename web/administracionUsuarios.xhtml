@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+   <h:head>
+        <title>Agregar o quitar usuarios al sistema IMM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body rendered="#{sbAdministracionUsuarios.esAdmin()}">
+        <h:outputText value="Alta de usuario" style="font-family: verdana; color:  #032a78; font-size: medium"/>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="Usuario"/>
+                <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario."/>
+                <h:outputText value="Contraseña"/>
+                <h:inputText value="#{sbAdministracionUsuarios.vou.clave}" required="true" requiredMessage="Debe ingresar la contraseña del usuario."/>
+                <h:outputText value="Nivel"/>
+                <h:selectOneMenu value="#{sbAdministracionUsuarios.vou.nivel}">
+                    <f:selectItem  itemValue="1" itemLabel="usuario común"/>
+                    <f:selectItem  itemValue="0" itemLabel="administrador"/>
+                </h:selectOneMenu> 
+            </h:panelGrid>
+            <br/>
+            <h:commandButton action="#{sbAdministracionUsuarios.altaUsuario()}" type="submit" value="Alta" />
+           
+            <br/>
+             <br/>
+        </h:form>
+        
+        <h:outputText value="Baja de usuario" style="font-family: verdana; color:  #032a78; font-size: medium"/>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="Usuario"/>
+                <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario para loguearse"/>
+            </h:panelGrid>
+            <br/>
+            <h:commandButton action="#{sbAdministracionUsuarios.bajaUsuario()}" type="submit" value="Baja" />
+            <br/>
+            <br/>
+      
+            <h:commandButton action="menu" immediate="true" value="Volver al menu" />
+        </h:form>
+        
+         
+         <h:messages id="mensaje" showDetail="false" showSummary="true"/>
+    </h:body>
+</html>
