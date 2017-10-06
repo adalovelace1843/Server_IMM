@@ -6,16 +6,47 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+    </h:head>
     <h:body>
-        <h:form>
-            <h:panelGrid columns ="1">
-                <h:outputText value="Menu" style="font-family: verdana; color:  #032a78; font-size: medium"/>
-                <br/>
-                <h:commandLink action="ventasMensuales" value="Ventas totales mensuales"/>
-                <h:commandLink action="ventasPorFecha" value="Ventas por rango de fechas"/>
-                <h:commandLink action="administracionUsuarios" value="Agregar o quitar usuarios" rendered="#{sbAdministracionUsuarios.esAdmin()}"/>
-            </h:panelGrid>
-        </h:form>
+  
+        <div class="row" style="background: #EEF2FC; margin-left: auto;">
+            <h1> Sitio de la IMM</h1>
+  	</div>
+        
+         <div class="row">
+            <div class="col-md-4"></div>
+                <h:form>
+                    <ul class="nav nav-tabs" style="background: #EEF2FC;">
+                      <li class="active">
+                        <a href="#">Home</a>
+                      </li>
+                      <li><h:commandLink action="ventasMensuales" value="Ventas totales mensuales"/></li>
+                      <li><h:commandLink action="ventasPorFecha" value="Ventas por rango de fechas"/></li>
+                      <li><h:commandLink action="administracionUsuarios" value="Agregar o quitar usuarios" rendered="#{sbAdministracionUsuarios.esAdmin()}"/></li>
+                    </ul>
+                </h:form>   
+  	</div>
+        
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">	
+              
+                <h4><strong>Sistema de Estacionamiento Tarifado</strong></h4>
+              
+                <!--<img src="/img/tarifado.jpg"/>-->
+             
+            </div>
+  	</div>
+        
+        
+        
+        
+        
+         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
     </h:body>
     
 </html>
