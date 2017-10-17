@@ -15,8 +15,8 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form>
-            <h:outputText value="Ventas Mensuales" style="font-family: verdana; color:  #035578"/>
-            <h:dataTable value="#{sbListadoTickets.tickets}" var="listado" bgcolor="#c1e5fa" border="1">
+            <h:outputText value="Ventas Mensuales" style="font-family: verdana; color:  #035578; font-size: xx-large;padding-left: 10px;"/>
+            <h:dataTable  class="table table-bordered table-striped table-hover table-condensed" value="#{sbListadoTickets.tickets}" var="listado" bgcolor="#c1e5fa" border="1">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Numero"/>
@@ -68,8 +68,12 @@ and open the template in the editor.
                 </h:column>
             </h:dataTable>
             <br/>
-            <h:commandButton action="menu" type="submit" value="Volver" />
-            <h:messages id="mensaje" showDetail="false" showSummary="true"/>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <h:commandButton class="btn btn-lg btn-primary btn-block" action="menu" type="submit" value="Volver" />
+                <h:messages id="mensaje" showDetail="false" showSummary="true"/>
+            </div>
+            
         </h:form>
         
          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

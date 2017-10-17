@@ -117,7 +117,7 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
             ps.close();
             return resultado;
         } catch (SQLException ex) {
-            throw new ExPersistenciaIMM("Error al obtener validación en la BD (SI)");
+            throw new ExPersistenciaIMM("Error al obtener validación en la BD (SI): "+ex);
         }
     }
 

@@ -13,87 +13,99 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:outputText value="Ingrese rango de fechas" style="font-family: verdana; color:  #032a78; font-size: medium"/>
+        <h:outputText value="Ventas por Rango de fechas" style="font-family: verdana; color:  #035578; font-size: xx-large;padding-left: 10px;"/>
+        <br/>
+        <br/>
+        <h:outputText value="Ingrese rango de fechas" style="font-family: verdana; color:  #035578; font-size: medium;padding-left: 10px;"/>
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputText value="Desde"/>
+                <h:outputText value="Desde" style="padding-left: 20px;color: #035578;font-size: x-large;font-family: monospace;"/>
                 <h:inputText value="#{sbVentasPorFecha.fecha_desde}"  required="true" requiredMessage="Debe ingresar la fecha de inicio">
                     <f:convertDateTime type="date" dateStyle="medium"/>
                 </h:inputText>
-                <h:outputText value="Hasta"/>
+                <h:outputText value="Hasta" style="padding-left: 20px;color: #035578;font-size: x-large;font-family: monospace;"/>
                 <h:inputText value="#{sbVentasPorFecha.fecha_hasta}" required="true" requiredMessage="Debe ingresar la fecha fin">
                     <f:convertDateTime type="date" dateStyle="medium"/>
                </h:inputText>
             </h:panelGrid>
             <br/>
-            <h:commandButton action="#{sbVentasPorFecha.listadoPorFechas()}" type="submit" value="Ver listado" />
-            <h:commandButton action="menu" type="submit" value="Volver" immediate="true" />
+            <div class="col-md-2">
+            
+                <h:commandButton class="btn btn-lg btn-primary btn-block" action="#{sbVentasPorFecha.listadoPorFechas()}" type="submit" value="Ver listado" />
+                <h:commandButton class="btn btn-lg btn-primary btn-block" action="menu" type="submit" value="Volver" immediate="true" />
+                
+            </div>
+            <div class="col-md-10"></div>
+            <br/>
             <h:messages id="mensaje" showDetail="false" showSummary="true"/>
-        </h:form>
-        <h:form rendered="#{not empty sbVentasPorFecha.ticketsFecha}">
             <br/>
-            <h:outputText value="Ventas por fecha, desde " style="font-family: verdana; color:  #035578"/>
-            <h:outputText value="#{sbVentasPorFecha.fecha_desde}" style="font-family: verdana; color:  #035578">
-                <f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy"/>
-            </h:outputText>
-             <h:outputText value=" al " style="font-family: verdana; color:  #035578"/>
-            <h:outputText value="#{sbVentasPorFecha.fecha_hasta}" style="font-family: verdana; color:  #035578">
-                <f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy"/>
-            </h:outputText>
-             <h:dataTable value="#{sbVentasPorFecha.ticketsFecha}" var="listado" bgcolor="#c1e5fa" border="1" >
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Numero"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.nro_ticket}"/>
-                </h:column>
+            <br/>
+        </h:form>
+        <div class="col-md-12">
+            <h:form rendered="#{not empty sbVentasPorFecha.ticketsFecha}">
+                <br/>
+                <h:outputText value="Ventas por fecha, desde " style="font-family: verdana; color:  #035578;padding-left: 10px;"/>
+                <h:outputText value="#{sbVentasPorFecha.fecha_desde}" style="font-family: verdana; color:  #035578">
+                    <f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+                 <h:outputText value=" al " style="font-family: verdana; color:  #035578"/>
+                <h:outputText value="#{sbVentasPorFecha.fecha_hasta}" style="font-family: verdana; color:  #035578">
+                    <f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+                 <h:dataTable class="table table-bordered table-striped table-hover table-condensed" value="#{sbVentasPorFecha.ticketsFecha}" var="listado" bgcolor="#c1e5fa" border="1" >
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Numero"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.nro_ticket}"/>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Agencia"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.agencia_venta}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Matricula"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.matricula}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Fecha hora venta"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.f_h_venta}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Fecha hora inicio"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.f_h_inicio}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Minutos"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.cant_min}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Importe total"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.importe_total}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Estado"/>
-                    </f:facet>
-                    <h:outputText value="#{listado.estado}"/>
-                </h:column>
-            </h:dataTable>
-            <br/>
-        </h:form>
-        
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Agencia"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.agencia_venta}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Matricula"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.matricula}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha hora venta"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.f_h_venta}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha hora inicio"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.f_h_inicio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Minutos"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.cant_min}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Importe total"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.importe_total}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Estado"/>
+                        </f:facet>
+                        <h:outputText value="#{listado.estado}"/>
+                    </h:column>
+                </h:dataTable>
+                <br/>
+            </h:form>
+         </div>
          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

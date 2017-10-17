@@ -13,40 +13,58 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body rendered="#{sbAdministracionUsuarios.esAdmin()}">
-        <h:outputText value="Alta de usuario" style="font-family: verdana; color:  #032a78; font-size: medium"/>
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Usuario"/>
-                <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario."/>
-                <h:outputText value="Contraseña"/>
-                <h:inputText value="#{sbAdministracionUsuarios.vou.clave}" required="true" requiredMessage="Debe ingresar la contraseña del usuario."/>
-                <h:outputText value="Nivel"/>
-                <h:selectOneMenu value="#{sbAdministracionUsuarios.vou.nivel}">
-                    <f:selectItem  itemValue="1" itemLabel="usuario común"/>
-                    <f:selectItem  itemValue="0" itemLabel="administrador"/>
-                </h:selectOneMenu> 
-            </h:panelGrid>
-            <br/>
-            <h:commandButton action="#{sbAdministracionUsuarios.altaUsuario()}" type="submit" value="Alta" />
-           
-            <br/>
-             <br/>
-        </h:form>
+        <div class="row">
+            <div class="col-md-12">
+                <h:outputText value="Alta de usuarios" style="font-family: verdana; color:  #035578; font-size: xx-large;padding-left: 10px;"/>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Usuario" style="padding-left: 30px;color: #035578;font-size: x-large;font-family: monospace;"/>
+                        <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario."/>
+                        <h:outputText value="Contraseña" style="padding-left: 30px;color: #035578;font-size: x-large;font-family: monospace;"/>
+                        <h:inputText value="#{sbAdministracionUsuarios.vou.clave}" required="true" requiredMessage="Debe ingresar la contraseña del usuario."/>
+                        <h:outputText value="Nivel" style="padding-left: 30px;color: #035578;font-size: x-large;font-family: monospace;"/>
+                        <h:selectOneMenu value="#{sbAdministracionUsuarios.vou.nivel}">
+                            <f:selectItem  itemValue="1" itemLabel="usuario común"/>
+                            <f:selectItem  itemValue="0" itemLabel="administrador"/>
+                        </h:selectOneMenu> 
+                    </h:panelGrid>
+                    <br/>
+
+                <div class="col-md-2">
+                    <h:commandButton class="btn btn-lg btn-primary btn-block" action="#{sbAdministracionUsuarios.altaUsuario()}" type="submit" value="Alta" />
+                </div>
+
+                <br/>
+                <br/>
+                </h:form>
+            </div>
+        </div>
         
-        <h:outputText value="Baja de usuario" style="font-family: verdana; color:  #032a78; font-size: medium"/>
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Usuario"/>
-                <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario para loguearse"/>
-            </h:panelGrid>
-            <br/>
-            <h:commandButton action="#{sbAdministracionUsuarios.bajaUsuario()}" type="submit" value="Baja" />
-            <br/>
-            <br/>
-      
-            <h:commandButton action="menu" immediate="true" value="Volver al menu" />
-        </h:form>
-        
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-12">
+                <h:outputText value="Baja de usuarios" style="font-family: verdana; color:  #035578; font-size: xx-large;padding-left: 10px;"/>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Usuario" style="padding-left: 30px;color: #035578;font-size: x-large;font-family: monospace;"/>
+                        <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario para loguearse"/>
+                    </h:panelGrid>
+                    <br/>
+                    <div class="col-md-2">
+                        <h:commandButton class="btn btn-lg btn-primary btn-block" action="#{sbAdministracionUsuarios.bajaUsuario()}" type="submit" value="Baja" />
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h:commandButton class="btn btn-lg btn-primary btn-block" action="menu" immediate="true" value="Volver al menu" />
+                    </div>
+
+                    <br/>
+                    <br/>
+                </h:form>
+            </div>
+        </div>        
          
          <h:messages id="mensaje" showDetail="false" showSummary="true"/>
          
