@@ -46,7 +46,11 @@ and open the template in the editor.
                 <h:form>
                     <h:panelGrid columns="2">
                         <h:outputText value="Usuario" style="padding-left: 30px;color: #035578;font-size: x-large;font-family: monospace;"/>
-                        <h:inputText value="#{sbAdministracionUsuarios.vou.usuario}" id="usr" required="true" requiredMessage="Debe ingresar el usuario para loguearse"/>
+                        
+                        <h:selectOneMenu value="#{sbAdministracionUsuarios.vou.usuario}">
+                            <f:selectItems value="#{sbAdministracionUsuarios.lista}" var="user" id="usr"
+                                           itemLabel="#{user}" itemValue="#{user}" />
+                        </h:selectOneMenu>
                     </h:panelGrid>
                     <br/>
                     <div class="col-md-2">

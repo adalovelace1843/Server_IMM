@@ -97,4 +97,10 @@ public class InterfaceB2BImpl implements InterfaceB2B{
         InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
         return in.esAdminBD(usuario);
     }
+
+    @Override
+    public List<String> obtenerUsuarios() throws ExPersistenciaIMM {
+        InterfaceBD_IMM in = InterfaceBD_IMM_Impl.getInstance();
+        return in.obtenerUsuariosIMM();
+    }
 }

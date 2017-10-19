@@ -14,7 +14,10 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -288,6 +291,22 @@ public class InterfaceBD_IMM_Impl implements InterfaceBD_IMM{
             rs.close();
             ps.close();
             return esAdmin;
+        } catch (SQLException ex) {
+            throw new ExPersistenciaIMM("Error al obtener si es un administrador en la BD (SI)");
+        }
+    }
+
+    @Override
+    public List<String> obtenerUsuariosIMM() throws ExPersistenciaIMM {
+        try {
+            List<String> lista = new LinkedList<String>();
+            String sql="select usuario from usuarios";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs =ps.executeQuery();
+            while(rs.next()){
+                lista.add(rs.getString("usuario"));
+            }
+            return lista;
         } catch (SQLException ex) {
             throw new ExPersistenciaIMM("Error al obtener si es un administrador en la BD (SI)");
         }

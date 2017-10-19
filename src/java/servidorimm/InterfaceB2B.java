@@ -31,4 +31,6 @@ public interface InterfaceB2B {
     public void bajaUsuario(String usuario) throws ExPersistenciaIMM;
 
     public boolean esAdmin(String usuario) throws ExPersistenciaIMM;
+
+    public List<String> obtenerUsuarios() throws ExPersistenciaIMM;
 }

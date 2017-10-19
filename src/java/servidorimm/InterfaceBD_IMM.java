@@ -35,5 +35,7 @@ public interface InterfaceBD_IMM  {
 
     public boolean esAdminBD(String usuario)throws ExPersistenciaIMM;
 
+    public List<String> obtenerUsuariosIMM() throws ExPersistenciaIMM ;
+
    
 }

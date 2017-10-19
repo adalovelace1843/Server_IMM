@@ -6,6 +6,8 @@
 package beans;
 
 import exception.ExPersistenciaIMM;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -24,8 +26,15 @@ import valueObjects.voUsuario;
 @RequestScoped
 public class sbAdministracionUsuarios {
     private voUsuario vou = new voUsuario();
-
+    private List<String> lista = null;
+    
     public sbAdministracionUsuarios() {
+        try {
+            InterfaceB2B ib2b= new InterfaceB2BImpl();
+            this.lista = ib2b.obtenerUsuarios();
+        } catch (ExPersistenciaIMM ex) {
+            FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error usuarios"));
+        }
     }
 
     public voUsuario getVou() {
@@ -36,10 +45,18 @@ public class sbAdministracionUsuarios {
         this.vou = vou;
     }
     
+    public void setLista(List lista){
+        this.lista=lista;
+    }
+    public List<String> getLista(){
+        return lista;
+    }
+    
     public void altaUsuario(){
         try {
             InterfaceB2B ib2b= new InterfaceB2BImpl();
             ib2b.altaUsuario(vou);
+            this.lista = ib2b.obtenerUsuarios();
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_INFO,"Alta de usuario realizada con éxito!","Info usuarios"));
         } catch (ExPersistenciaIMM ex) {
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error usuarios"));
@@ -50,6 +67,7 @@ public class sbAdministracionUsuarios {
         try {
             InterfaceB2B ib2b= new InterfaceB2BImpl();
             ib2b.bajaUsuario(vou.getUsuario());
+            this.lista = ib2b.obtenerUsuarios();
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_INFO,"Baja de usuario realizada con éxito!","Info usuarios"));
         } catch (ExPersistenciaIMM ex) {
             FacesContext.getCurrentInstance().addMessage("mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error: "+ex.getMessage(),"Error usuarios"));
